@@ -1,0 +1,43 @@
+@model WebApplication1.Models.StudentFilterViewModel
+
+@{
+    ViewBag.Title = "Advanced Student Filter";
+}
+
+<h2>Advanced Student Filter</h2>
+
+<p>
+    @Html.ActionLink("Back to Students", "Index", "Students")
+</p>
+
+@using (Html.BeginForm("Advanced", "Students", FormMethod.Get))
+{
+    <p>
+        Search by name or address:
+        @Html.TextBoxFor(m => m.SearchText)
+
+        Campus:
+        @Html.DropDownListFor(m => m.Campus, Model.Campuses, "All")
+
+        <input type="submit" value="Search" class="btn btn-default" />
+    </p>
+}
+
+<table class="table">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Campus</th>
+    </tr>
+
+    @foreach (var item in Model.Students)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.Name</td>
+            <td>@item.Address</td>
+            <td>@item.Campus.Name</td>
+        </tr>
+    }
+</table>

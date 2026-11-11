@@ -1,0 +1,43 @@
+﻿@model IEnumerable<WebApplication1.Models.Student>
+
+@{
+    ViewBag.Title = "Students";
+}
+
+<h2>Students</h2>
+
+<p>
+    @Html.ActionLink("Go to Advanced Filter", "Advanced", "Students")
+</p>
+
+@using (Html.BeginForm("Index", "Students", FormMethod.Get))
+{
+    <p>
+        Search by name:
+        @Html.TextBox("search", ViewBag.Search as string)
+
+        Campus:
+        @Html.DropDownList("campus", (SelectList)ViewBag.Campus, "All")
+
+        <input type="submit" value="Filter" class="btn btn-default" />
+    </p>
+}
+
+<table class="table">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Campus</th>
+    </tr>
+    
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.Name</td>
+            <td>@item.Address</td>
+            <td>@item.Campus.Name</td>
+        </tr>
+    }
+</table>
